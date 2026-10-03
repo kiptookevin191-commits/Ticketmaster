@@ -87,53 +87,54 @@
     </div>
   </div>
 
-  <!-- DETAILS -->
+  <!-- DETAILS — fixed to match reference photo -->
   <div id="screen-details" class="screen">
     <div class="dt-header">
       <button class="dt-back" onclick="go('events')">←</button>
       <span>Event Details</span>
     </div>
-    <div class="dt-body">
-      <div class="dt-card">
-        <div class="dt-hero">
-          <img id="dt-cover" src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600" alt="Event">
-          <div class="dt-hero-overlay"></div>
-          <div class="dt-hero-info">
-            <div id="dt-date" class="dt-hero-date">FRI • OCT 2, 2026</div>
-            <div id="dt-title" class="dt-hero-title">BTS WORLD TOUR ARIRANG</div>
-          </div>
-        </div>
-        <div class="dt-hero-venue">
-          <span id="dt-venue">Estadio El Campín</span>
-          <span id="dt-count" style="color:#fff; font-weight:700;">x3</span>
+
+    <div class="dt-body-dark">
+      <div class="dt-hero-big">
+        <img id="dt-cover" src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600" alt="Event">
+        <div class="dt-hero-overlay"></div>
+        <div class="dt-hero-info">
+          <div id="dt-date" class="dt-hero-date">FRI • OCT 2, 2026 • 7:00 PM</div>
+          <div id="dt-title" class="dt-hero-title">BTS WORLD TOUR ARIRANG - BOGOTÁ</div>
         </div>
       </div>
-      <button class="btn-view" onclick="go('barcode')">
-        <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        VIEW TICKETS
-      </button>
-      <button class="btn-transfer" onclick="startTransfer()">
-        <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-        TRANSFER TICKETS
-      </button>
-      <div class="action-bar">
-        <button class="action-btn blue" onclick="startTransfer()">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-          <span>Transfer</span>
-        </button>
-        <button class="action-btn grey">
-          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Sell</span>
-        </button>
-        <button class="action-btn blue">
-          <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-          <span>More</span>
-        </button>
+      <div class="dt-venue-row">
+        <span id="dt-venue">Estadio El Campín, Bogotá</span>
+        <span id="dt-count">x3</span>
       </div>
-      <div class="dt-tabs">
-        <div class="dt-tab active">Tickets</div>
-        <div class="dt-tab">Extras</div>
-      </div>
+    </div>
+
+    <button class="btn-view-bar" onclick="go('barcode')">
+      <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      VIEW TICKETS
+    </button>
+
+    <div class="action-bar-attached">
+      <button class="action-btn blue" onclick="startTransfer()">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span>Transfer</span>
+      </button>
+      <button class="action-btn grey">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Sell</span>
+      </button>
+      <button class="action-btn blue">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        <span>More</span>
+      </button>
+    </div>
+
+    <div class="dt-tabs-attached">
+      <div class="dt-tab active">Tickets</div>
+      <div class="dt-tab">Extras</div>
+    </div>
+
+    <div class="dt-body-light">
       <div class="order-head">
         <div>
           <div class="order-id">Order #TM-SEED-BTS-CO</div>
@@ -289,4 +290,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-                                                                                                                                                                                </html>
