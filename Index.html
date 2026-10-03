@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ticketmaster</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- LOGIN -->
+  <div id="screen-login" class="screen active">
+    <div class="login-card">
+      <div class="tm-logo">
+        <svg viewBox="0 0 24 24"><path d="M14.5 2.5c-.3 0-.6.2-.7.5l-1.3 5.5H8.5c-.4 0-.7.3-.8.7l-.3 1.5c-.1.4.2.8.7.8h3l-2.6 10.5c-.2 1 .5 1.8 1.5 1.8.4 0 .8-.1 1.1-.3l4.6-3c.3-.2.4-.5.3-.8l-.4-1.4c-.1-.4-.6-.6-.9-.4l-2.2 1.4 2.2-8.8h3.1c.4 0 .8-.3.8-.7l.3-1.5c.1-.4-.2-.8-.7-.8h-3.1l1.3-5c0-.2 0-.4-.1-.5-.1-.1-.3-.2-.5-.2z"/></svg>
+      </div>
+      <div class="login-title">ticketmaster</div>
+      <div class="login-sub">Sign in to manage your tickets</div>
+      <label class="login-label">Email</label>
+      <input id="login-email" class="login-input" type="email" value="user@example.com" />
+      <label class="login-label">Password</label>
+      <input id="login-password" class="login-input" type="password" value="password" />
+      <button class="login-btn" onclick="doLogin()">SIGN IN</button>
+      <div class="login-hint">Use any email &amp; password to sign in</div>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <div id="screen-events" class="screen">
+    <div class="ev-header">
+      <div class="ev-header-left">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>My Events 🇺🇸</span>
+      </div>
+      <div class="ev-header-right">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <svg class="ico" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Help</span>
+      </div>
+    </div>
+    <div class="ev-tabs">
+      <div class="ev-tab active">UPCOMING (7)</div>
+      <div class="ev-tab">PAST (3)</div>
+    </div>
+    <div class="ev-list">
+      <div class="ev-card" onclick="go('details')">
+        <div class="ev-img-wrap">
+          <img id="ev-cover" src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600" alt="Event">
+          <div class="ev-date-badge"><span id="ev-date-badge">FRI • OCT 2, 2026 • 7:00 PM</span></div>
+        </div>
+        <div class="ev-body">
+          <div id="ev-title" class="ev-title">BTS WORLD TOUR ARIRANG - BOGOTÁ</div>
+          <div class="ev-bottom">
+            <span id="ev-venue">Estadio El Campín, Bogotá</span>
+            <div class="ev-ticket-count">
+              <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>
+              <span id="ev-ticket-count">x3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=600" alt="Hockey">
+          <div class="ev-date-badge"><span>SUN • OCT 11, 2026 • 7:30 PM</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-title">PACIFIC TITANS VS HARBOR HAWKS</div>
+          <div class="ev-bottom">
+            <span>Pacific Dome Arena, Los Angeles</span>
+            <div class="ev-ticket-count">
+              <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>
+              <span>x3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg><span>Discover</span></button>
+      <button class="nav-btn"><svg class="ico" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>Favorites</span></button>
+      <button class="nav-btn active"><svg class="ico" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg><span>My Tickets</span></button>
+      <button class="nav-btn"><svg class="ico" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Sell</span></button>
+      <button class="nav-btn" onclick="go('admin')"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span><span class="nav-badge">1</span></button>
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div id="screen-details" class="screen">
+    <div class="dt-header">
+      <button class="dt-back" onclick="go('events')">←</button>
+      <span>Event Details</span>
+    </div>
+    <div class="dt-body">
+      <div class="dt-card">
+        <div class="dt-hero">
+          <img id="dt-cover" src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600" alt="Event">
+          <div class="dt-hero-overlay"></div>
+          <div class="dt-hero-info">
+            <div id="dt-date" class="dt-hero-date">FRI • OCT 2, 2026</div>
+            <div id="dt-title" class="dt-hero-title">BTS WORLD TOUR ARIRANG</div>
+          </div>
+        </div>
+        <div class="dt-hero-venue">
+          <span id="dt-venue">Estadio El Campín</span>
+          <span id="dt-count" style="color:#fff; font-weight:700;">x3</span>
+        </div>
+      </div>
+      <button class="btn-view" onclick="go('barcode')">
+        <svg class="ico ico-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        VIEW TICKETS
+      </button>
+      <button class="btn-transfer" onclick="startTransfer()">
+        <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        TRANSFER TICKETS
+      </button>
+      <div class="action-bar">
+        <button class="action-btn blue" onclick="startTransfer()">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Transfer</span>
+        </button>
+        <button class="action-btn grey">
+          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Sell</span>
+        </button>
+        <button class="action-btn blue">
+          <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          <span>More</span>
+        </button>
+      </div>
+      <div class="dt-tabs">
+        <div class="dt-tab active">Tickets</div>
+        <div class="dt-tab">Extras</div>
+      </div>
+      <div class="order-head">
+        <div>
+          <div class="order-id">Order #TM-SEED-BTS-CO</div>
+          <div class="order-count" id="dt-ticket-label">x3 Tickets</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div id="ticket-list"></div>
+    </div>
+  </div>
+
+  <!-- BARCODE -->
+  <div id="screen-barcode" class="screen">
+    <div class="bc-top">ticketmaster</div>
+    <div class="bc-main">
+      <div class="bc-card">
+        <div class="bc-msg">
+          <span>Screenshots won't get you in</span>
+          <span class="bc-refresh">↻</span>
+        </div>
+        <div class="bc-wrap">
+          <div class="bc-lines"></div>
+          <div class="bc-scan"></div>
+        </div>
+        <div class="bc-hint">Scan at entrance</div>
+        <div class="bc-info">
+          <div><span class="bc-info-label">Section</span><span id="bc-section" class="bc-info-val">Occidental Baja</span></div>
+          <div><span class="bc-info-label">Row</span><span id="bc-row" class="bc-info-val">12</span></div>
+          <div><span class="bc-info-label">Seat</span><span id="bc-seat" class="bc-info-val">5</span></div>
+        </div>
+      </div>
+      <div class="bc-footer">Hold near reader to enter event</div>
+      <button class="bc-back" onclick="go('details')">← Back to Details</button>
+    </div>
+  </div>
+
+  <!-- SELECT TICKETS -->
+  <div id="screen-select" class="screen">
+    <div class="p-header">
+      <button class="p-back" onclick="go('details')">←</button>
+      <span>Select Tickets</span>
+    </div>
+    <div class="p-body">
+      <p class="sel-hint">Select the tickets you want to transfer.</p>
+      <div id="select-list"></div>
+      <button id="btn-continue" class="btn-continue" disabled onclick="go('security')">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- SECURITY -->
+  <div id="screen-security" class="screen">
+    <div class="p-header">
+      <button class="p-back" onclick="go('select')">←</button>
+      <span>Security Verification</span>
+    </div>
+    <div class="p-body">
+      <div class="sec-card">
+        <div class="sec-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0d72ff" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="sec-title">Verify Transfer</div>
+        <div class="sec-sub">Enter the 6-digit verification code to continue.</div>
+        <div class="sec-code">
+          <input class="sec-digit" maxlength="1" value="4" />
+          <input class="sec-digit" maxlength="1" value="8" />
+          <input class="sec-digit" maxlength="1" value="1" />
+          <input class="sec-digit" maxlength="1" value="9" />
+          <input class="sec-digit" maxlength="1" value="2" />
+          <input class="sec-digit" maxlength="1" value="0" />
+        </div>
+        <button class="btn-continue" onclick="go('recipient')">CONTINUE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPIENT -->
+  <div id="screen-recipient" class="screen">
+    <div class="p-header">
+      <button class="p-back" onclick="go('security')">←</button>
+      <span>Recipient Information</span>
+    </div>
+    <div class="p-body">
+      <div class="rec-card">
+        <label class="rec-label">First Name</label>
+        <input class="rec-input" value="Sofia" />
+        <label class="rec-label">Last Name</label>
+        <input class="rec-input" value="Martinez" />
+        <label class="rec-label">Email</label>
+        <input class="rec-input" type="email" value="sofia.martinez@example.com" />
+        <label class="rec-label">Note</label>
+        <textarea class="rec-textarea" rows="3">Enjoy the concert! See you at the venue.</textarea>
+        <div class="rec-note" id="rec-note">1 ticket selected for transfer.</div>
+        <button class="btn-continue" onclick="finishTransfer()">CONTINUE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="screen-admin" class="screen">
+    <div class="ad-header">
+      <div class="ad-header-left">
+        <button class="p-back" onclick="go('events')">←</button>
+        <span>Admin Manager</span>
+      </div>
+      <button class="ad-logout" onclick="doLogout()">Log out</button>
+    </div>
+    <div class="p-body">
+      <div class="ad-card">
+        <div class="ad-card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d72ff" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+          Event Settings
+        </div>
+        <label class="ad-label">Event Title</label>
+        <input id="admin-title" class="ad-input" />
+        <label class="ad-label">Date &amp; Time</label>
+        <input id="admin-date" class="ad-input" />
+        <label class="ad-label">Venue</label>
+        <input id="admin-venue" class="ad-input" />
+        <label class="ad-label">Cover Image URL</label>
+        <input id="admin-cover" class="ad-input" />
+      </div>
+      <div class="ad-card">
+        <div class="ad-header-row">
+          <span class="ad-tickets-label">Individual Tickets (<span id="admin-count">3</span>)</span>
+          <button class="ad-add-btn" onclick="addTicket()">+ ADD</button>
+        </div>
+        <div id="admin-ticket-list"></div>
+      </div>
+      <div class="ad-card">
+        <div class="ad-card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d72ff" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Active Users
+        </div>
+        <div id="user-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="success-modal" class="modal-bg">
+    <div class="modal-card">
+      <div class="modal-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="modal-title">Successful!</div>
+      <div class="modal-sub">Ticket Transfer was successful.</div>
+      <button class="modal-btn" onclick="closeSuccess()">OK</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+                                                                                                                                                                                </html>
