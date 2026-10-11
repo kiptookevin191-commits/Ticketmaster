@@ -1,4 +1,8 @@
-var state = {
+/* ============================================================
+   STATE with localStorage persistence
+   ============================================================ */
+
+var DEFAULT_STATE = {
   title: 'BTS WORLD TOUR ARIRANG - BOGOTÁ',
   date: 'FRI • OCT 2, 2026 • 7:00 PM',
   venue: 'Estadio El Campín, Bogotá',
@@ -16,6 +20,39 @@ var state = {
   ]
 };
 
+/* Load saved state, or use defaults if nothing saved yet */
+function loadState() {
+  try {
+    var saved = localStorage.getItem('tm_state');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      // make sure all required fields exist
+      if (parsed && parsed.tickets && parsed.users) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not load saved state, using defaults.', e);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+
+/* Save the entire state to localStorage */
+function saveState() {
+  try {
+    localStorage.setItem('tm_state', JSON.stringify(state));
+  } catch (e) {
+    console.warn('Could not save state.', e);
+  }
+}
+
+/* Initialize the state */
+var state = loadState();
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
 function go(screenName) {
   var screens = document.querySelectorAll('.screen');
   for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
@@ -26,6 +63,10 @@ function go(screenName) {
   if (screenName === 'select') renderSelect();
 }
 
+/* ============================================================
+   RENDER — EVENTS
+   ============================================================ */
+
 function renderEvents() {
   document.getElementById('ev-cover').src = state.cover;
   document.getElementById('ev-date-badge').textContent = state.date;
@@ -34,6 +75,10 @@ function renderEvents() {
   var avail = state.tickets.filter(function(t){ return !t.transferred; });
   document.getElementById('ev-ticket-count').textContent = 'x' + avail.length;
 }
+
+/* ============================================================
+   RENDER — DETAILS
+   ============================================================ */
 
 function renderDetails() {
   document.getElementById('dt-cover').src = state.cover;
@@ -60,6 +105,10 @@ function renderDetails() {
     list.innerHTML += html;
   });
 }
+
+/* ============================================================
+   TRANSFER FLOW
+   ============================================================ */
 
 function startTransfer() {
   state.tickets.forEach(function(t){ t.selected = false; });
@@ -89,6 +138,7 @@ function renderSelect() {
 
 function toggleSelect(id) {
   state.tickets.forEach(function(t){ if (t.id === id) t.selected = !t.selected; });
+  saveState();
   renderSelect();
 }
 
@@ -101,7 +151,13 @@ function updateContinueBtn() {
 }
 
 function finishTransfer() {
-  state.tickets.forEach(function(t){ if (t.selected && !t.transferred) { t.transferred = true; t.selected = false; } });
+  state.tickets.forEach(function(t){
+    if (t.selected && !t.transferred) {
+      t.transferred = true;
+      t.selected = false;
+    }
+  });
+  saveState();
   document.getElementById('success-modal').classList.add('show');
 }
 
@@ -110,20 +166,38 @@ function closeSuccess() {
   go('details');
 }
 
+/* ============================================================
+   ADMIN — TICKETS
+   ============================================================ */
+
 function addTicket() {
   var nextId = state.tickets.length > 0 ? Math.max.apply(null, state.tickets.map(function(t){ return t.id; })) + 1 : 1;
-  state.tickets.push({ id: nextId, section: 'Occidental Baja', row: '12', seat: String(nextId + 4), selected: false, transferred: false });
+  state.tickets.push({
+    id: nextId,
+    section: 'Occidental Baja',
+    row: '12',
+    seat: String(nextId + 4),
+    selected: false,
+    transferred: false
+  });
+  saveState();
   renderAdmin();
 }
 
 function deleteTicket(id) {
   state.tickets = state.tickets.filter(function(t){ return t.id !== id; });
+  saveState();
   renderAdmin();
 }
 
 function updateTicket(id, field, val) {
   state.tickets.forEach(function(t){ if (t.id === id) t[field] = val; });
+  saveState();
 }
+
+/* ============================================================
+   ADMIN — RENDER
+   ============================================================ */
 
 function renderAdmin() {
   document.getElementById('admin-title').value = state.title;
@@ -131,6 +205,7 @@ function renderAdmin() {
   document.getElementById('admin-venue').value = state.venue;
   document.getElementById('admin-cover').value = state.cover;
   document.getElementById('admin-count').textContent = state.tickets.length;
+
   var list = document.getElementById('admin-ticket-list');
   list.innerHTML = '';
   state.tickets.forEach(function(t){
@@ -148,6 +223,10 @@ function renderAdmin() {
   });
   renderUsers();
 }
+
+/* ============================================================
+   ADMIN — USERS
+   ============================================================ */
 
 function renderUsers() {
   var list = document.getElementById('user-list');
@@ -172,14 +251,24 @@ function renderUsers() {
 }
 
 function blockUser(id) {
-  state.users.forEach(function(u){ if (u.id === id) { u.blocked = true; u.meta = 'Blocked by admin'; } });
+  state.users.forEach(function(u){
+    if (u.id === id) { u.blocked = true; u.meta = 'Blocked by admin'; }
+  });
+  saveState();
   renderUsers();
 }
 
 function restoreUser(id) {
-  state.users.forEach(function(u){ if (u.id === id) { u.blocked = false; u.meta = 'Logged in just now · restored'; } });
+  state.users.forEach(function(u){
+    if (u.id === id) { u.blocked = false; u.meta = 'Logged in just now · restored'; }
+  });
+  saveState();
   renderUsers();
 }
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
 
 function doLogin() {
   var email = document.getElementById('login-email').value;
@@ -193,16 +282,51 @@ function doLogin() {
       blocked: false
     });
   }
+  localStorage.setItem('tm_loggedIn', 'true');
+  localStorage.setItem('tm_userEmail', email);
+  saveState();
   go('events');
 }
 
 function doLogout() {
+  localStorage.removeItem('tm_loggedIn');
+  localStorage.removeItem('tm_userEmail');
   go('login');
 }
 
-document.getElementById('admin-title').addEventListener('input', function(e){ state.title = e.target.value; });
-document.getElementById('admin-date').addEventListener('input', function(e){ state.date = e.target.value; });
-document.getElementById('admin-venue').addEventListener('input', function(e){ state.venue = e.target.value; });
-document.getElementById('admin-cover').addEventListener('input', function(e){ state.cover = e.target.value; });
+/* ============================================================
+   ADMIN INPUT LISTENERS — auto-save as you type
+   ============================================================ */
+
+document.getElementById('admin-title').addEventListener('input', function(e){
+  state.title = e.target.value;
+  saveState();
+});
+document.getElementById('admin-date').addEventListener('input', function(e){
+  state.date = e.target.value;
+  saveState();
+});
+document.getElementById('admin-venue').addEventListener('input', function(e){
+  state.venue = e.target.value;
+  saveState();
+});
+document.getElementById('admin-cover').addEventListener('input', function(e){
+  state.cover = e.target.value;
+  saveState();
+});
+
+/* ============================================================
+   STARTUP
+   ============================================================ */
+
+if (localStorage.getItem('tm_loggedIn') === 'true') {
+  var savedEmail = localStorage.getItem('tm_userEmail');
+  if (savedEmail) {
+    document.getElementById('login-email').value = savedEmail;
+  }
+  go('events');
+} else {
+  go('login');
+}
 
 renderEvents();
